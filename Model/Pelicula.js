@@ -1,42 +1,54 @@
 class Pelicula{
-    //Atributo
+    id
     titulo
     director
-    anioLanzamiento
+    genero
+    anio
     
     
-        constructor(titulo, director, anioLanzamiento) {
-            this.titulo = titulo;
-            this.director = director;
-            this.anioLanzamiento = anioLanzamiento;
-        }
+    constructor(id, titulo, director, genero, anio) {
+        this.id = id;
+        this.titulo = titulo;
+        this.director = director;
+        this.genero = genero;
+        this.anio = anio;
+      }
     }
+// Colección de películas
+const peliculas = [];
+
+// Agregar película
+agregarPelicula(pelicula) {
+  if (!pelicula instanceof Pelicula) {
+    throw new Error("El elemento no es una instancia de la clase Pelicula");
+  }
+
+  peliculas.push(pelicula);
+  console.log();
+}
+
+// Obtener película por ID
+obtenerPeliculaPorId(id) {
+  return peliculas.find(pelicula => pelicula.id === id);
+}
+
+// Actualizar película
+actualizarPelicula(peliculaActualizada) {
+  const indicePelicula = peliculas.findIndex(pelicula => pelicula.id === peliculaActualizada.id);
+
+  if (indicePelicula !== -1) {
+    peliculas[indicePelicula] = peliculaActualizada;
     
-    // Creamos una colección de películas (simulando una base de datos)
-    const peliculas = [];
-    
-    // Método GET: Obtener todas las películas
-    obtenerPeliculas() {
-        return peliculas;
-    }
-    
-    // Método POST: Agregar una nueva película
-    agregarPelicula(titulo, director, anioLanzamiento) {
-        const nuevaPelicula = new Pelicula(titulo, director, anioLanzamiento);
-        peliculas.push(nuevaPelicula);
-        return nuevaPelicula;
-    }
-    
-    // Método PUT: Actualizar una película existente
-    actualizarPelicula(id, titulo, director, anioLanzamiento) {
-        const peliculaExistente = peliculas.find(p => p.id === id);
-        if (!peliculaExistente) {
-            return null; // Película no encontrada
-        }
-        peliculaExistente.titulo = titulo;
-        peliculaExistente.director = director;
-        peliculaExistente.anioLanzamiento = anioLanzamiento;
-        return peliculaExistente;
-    }
+  } else {
+    console.error("Película no encontrada");
+  }
+}
+
+// Eliminar película por ID
+eliminarPeliculaPorId(id) {
+  peliculas = peliculas.filter(pelicula => pelicula.id !== id);
+ 
+}
+
 
 module.exports = Pelicula
